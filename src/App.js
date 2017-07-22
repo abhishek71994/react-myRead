@@ -31,19 +31,15 @@ class BooksApp extends React.Component {
   }
 
   onChangingShelf = (book,shelf) => {
-        console.log(book+" "+shelf)
 
         BooksAPI.update(book,shelf).then((response)=>{
             this.setState(({books}) => ({
-                books :  books.filter(b =>
-                  b.id === book.id? b.shelf=book : b
-                )
+                books: books.map(b => {
+                    if (b.id === book) b.shelf = shelf
+                    return b
+                })
             }))
-            this.setState(({currentRead}) =>
-                this.state.books.filter((book) => book.shelf === 'currentlyReading')
-            )
         })
-      console.log(this.state.currentRead())
 
     }
 
