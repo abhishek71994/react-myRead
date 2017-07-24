@@ -2,6 +2,8 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Homepage from './homepage'
+import AddSearch from './addSearch'
+import { Route } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   state = {
@@ -51,27 +53,21 @@ class BooksApp extends React.Component {
 
       <div className="app">
 
-        {this.state.showSearchPage ? (
-          <div className="search-books">
-            <div className="search-books-bar">
-              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
-              <div className="search-books-input-wrapper">
-                <input type="text" placeholder="Search by title or author"/>
-              </div>
-            </div>
-            <div className="search-books-results">
-              <ol className="books-grid"></ol>
-            </div>
-          </div>
-        ) : (
-            <div>
-              <Homepage onchangeshelf={this.onChangingShelf} curRead={this.state.currentRead()} read={this.state.read()} wantRead={this.state.wantToRead()} />
-              <div className="open-search">
-                <a href="#search" onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-              </div>
-            </div>
 
-        )}
+
+          <Route exact path="/search" render={()=>(
+              <AddSearch />
+          )} />
+
+            <Route exact path="/" render={()=>(
+                <Homepage onchangeshelf={this.onChangingShelf}
+                          curRead={this.state.currentRead()}
+                          read={this.state.read()}
+                          wantRead={this.state.wantToRead()} />
+            )} />
+
+
+
       </div>
     )
   }
