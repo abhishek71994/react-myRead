@@ -15,12 +15,14 @@ class addSearch extends Component{
         this.setState({query:query.trim()})
 
             BooksAPI.search(this.state.query).then((response) => {
-                    if (response.length > 0) {
+                    if (response!==undefined && response.length > 0 ) {
                         this.setState({result: response})
-                        console.log(this.state.result)
                     }
                 }
             )
+        if(this.state.query===''){
+            this.setState({result:[]})
+        }
 
 
         }
