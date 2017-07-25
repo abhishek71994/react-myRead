@@ -8,11 +8,22 @@ import * as BooksAPI from './BooksAPI'
 
 class addSearch extends Component{
     state={
-        query:''
+        query:'',
+        result:[]
     }
     updateQuery=(query) => {
         this.setState({query:query.trim()})
-    }
+
+            BooksAPI.search(this.state.query).then((response) => {
+                    if (response.length > 0) {
+                        this.setState({result: response})
+                        console.log(this.state.result)
+                    }
+                }
+            )
+
+
+        }
     render(){
         return(
             <div>
@@ -27,12 +38,12 @@ class addSearch extends Component{
                                    placeholder="Search by title or author"/>
                         </div>
                     </div>
-                    {console.log(this.state.query)}
+
                     <div className="search-books-results">
                         <ol className="books-grid">
                             {
-                                BooksAPI.search(this.state.query).then((response)=>{
-                                    response.map((searchRet)=> (
+
+                                    this.state.result.map((searchRet)=> (
                                         <li key={searchRet.id}>
                                             <div className="book">
                                                 <div className="book-top">
@@ -54,7 +65,7 @@ class addSearch extends Component{
                                     ))
 
 
-                                })
+
                                 }
 
                         </ol>
