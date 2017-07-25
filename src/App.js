@@ -24,15 +24,13 @@ class BooksApp extends React.Component {
       wantToRead : () => {
           return this.state.books.filter((book) => book.shelf === 'wantToRead');
       }
-
-  }
+    }
   componentDidMount(){
     BooksAPI.getAll().then((books) => {
       this.setState({books: books})
     })
   }
-
-  onChangingShelf = (book,shelf) => {
+    onChangingShelf = (book,shelf) => {
 
         BooksAPI.update(book,shelf).then((response)=>{
             this.setState(({books}) => ({
@@ -45,32 +43,29 @@ class BooksApp extends React.Component {
 
     }
 
+    render() {
+        return (
+
+          <div className="app">
 
 
 
-  render() {
-    return (
+              <Route exact path="/search" render={()=>(
+                  <AddSearch />
+              )} />
 
-      <div className="app">
-
-
-
-          <Route exact path="/search" render={()=>(
-              <AddSearch />
-          )} />
-
-            <Route exact path="/" render={()=>(
-                <Homepage onchangeshelf={this.onChangingShelf}
-                          curRead={this.state.currentRead()}
-                          read={this.state.read()}
-                          wantRead={this.state.wantToRead()} />
-            )} />
+                <Route exact path="/" render={()=>(
+                    <Homepage onchangeshelf={this.onChangingShelf}
+                              curRead={this.state.currentRead()}
+                              read={this.state.read()}
+                              wantRead={this.state.wantToRead()} />
+                )} />
 
 
 
-      </div>
-    )
+          </div>
+        )
+    }
   }
-}
 
 export default BooksApp
