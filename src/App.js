@@ -31,7 +31,7 @@ class BooksApp extends React.Component {
     })
   }
     onChangingShelf = (book,shelf) => {
-
+        console.log("Change shelf fired")
         BooksAPI.update(book,shelf).then((response)=>{
             this.setState(({books}) => ({
                 books: books.map(b => {
@@ -51,7 +51,7 @@ class BooksApp extends React.Component {
 
 
               <Route exact path="/search" render={()=>(
-                  <AddSearch />
+                  <AddSearch onAddShelf={this.onChangingShelf}/>
               )} />
 
                 <Route exact path="/" render={()=>(
