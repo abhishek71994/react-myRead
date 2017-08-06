@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react'
 import './App.css'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 class homepage extends Component{
@@ -11,7 +12,7 @@ class homepage extends Component{
             <div>
             <div className="list-books">
                 <div className="list-books-title">
-                    <h1>Mera baap ka maal</h1>
+                    <h1>MyRead App</h1>
                 </div>
                 <div className="list-books-content">
                     <div>
@@ -110,5 +111,11 @@ class homepage extends Component{
             </div>
         )
     }
+}
+homepage.propTypes={
+    onchangeshelf:PropTypes.func.isRequired,
+    curRead:PropTypes.array.isRequired,
+    read:PropTypes.array.isRequired,
+    wantRead:PropTypes.array.isRequired
 }
 export default homepage

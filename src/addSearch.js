@@ -3,21 +3,29 @@
  */
 import React,{ Component } from 'react'
 import './App.css'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
+
+
+
 
 class addSearch extends Component{
     state={
         query:'',
         result:[]
     }
-    updateQuery=(query) => {
-        this.setState({query:query.trim()})
 
-            BooksAPI.search(this.state.query).then((response) => {
-                    if (response!==undefined && response.length > 0 ) {
+    updateQuery=(query) => {
+        this.setState({query:query})
+            BooksAPI.search(this.state.query,20).then((response) => {
+                if(query){
+                    if (response!==undefined && response.length > 0) {
+
                         this.setState({result: response})
                     }
+                }
+
                 }
             )
         if(this.state.query===''){
@@ -26,6 +34,7 @@ class addSearch extends Component{
 
 
         }
+
     render(){
         return(
             <div>
@@ -45,12 +54,13 @@ class addSearch extends Component{
                         <ol className="books-grid">
                             {
 
-                                    this.state.result.map((searchRet)=> (
-                                        <li key={searchRet.id}>
+                                    this.state.result.map((searchRet,index)=> (
+
+                                        <li key={index}>
                                             <div className="book">
                                                 <div className="book-top">
-                                                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${searchRet.imageLinks.smallThumbnail})` }}></div>
-                                                    <div className="book-shelf-changer">
+                                                    {searchRet.imageLinks ? <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${searchRet.imageLinks.thumbnail})`}}></div>
+                                                        : <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(https://books.google.com/googlebooks/images/no_cover_thumb.gif)`}}></div>}                                                    <div className="book-shelf-changer">
                                                         <select defaultValue={searchRet.shelf} onChange={(e)=> this.props.onAddShelf(searchRet.id,e.target.value)}>
                                                             <option value="none" disabled>Move to...</option>
                                                             <option value="currentlyReading">Currently Reading</option>
@@ -60,7 +70,7 @@ class addSearch extends Component{
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div className="book-title">{searchRet.title}</div>
+                                                {searchRet.authors ? <div className="book-authors">{searchRet.authors}</div> : <div className="book-authors">N/A </div>}
                                                 <div className="book-authors">{searchRet.authors}</div>
                                             </div>
                                         </li>
@@ -77,4 +87,8 @@ class addSearch extends Component{
         )
     }
 }
+addSearch.propTypes={
+    onAddShelf:PropTypes.func.isRequired
+}
+
 export default addSearch
