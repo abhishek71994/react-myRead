@@ -61,7 +61,7 @@ class addSearch extends Component{
                                                 <div className="book-top">
                                                     {searchRet.imageLinks ? <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${searchRet.imageLinks.thumbnail})`}}></div>
                                                         : <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(https://books.google.com/googlebooks/images/no_cover_thumb.gif)`}}></div>}                                                    <div className="book-shelf-changer">
-                                                        <select defaultValue={searchRet.shelf} onChange={(e)=> this.props.onAddShelf(searchRet.id,e.target.value)}>
+                                                        <select defaultValue={searchRet.shelf} onChange={(e)=> this.props.onAddShelf(searchRet,e.target.value)}>
                                                             <option value="none" disabled>Move to...</option>
                                                             <option value="currentlyReading">Currently Reading</option>
                                                             <option value="wantToRead">Want to Read</option>

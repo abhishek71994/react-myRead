@@ -25,7 +25,7 @@ class homepage extends Component{
                                             <div className="book-top">
                                                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${curRead.imageLinks.smallThumbnail})` }}></div>
                                                 <div className="book-shelf-changer">
-                                                    <select defaultValue={curRead.shelf} onChange={(e)=> this.props.onchangeshelf(curRead.id,e.target.value)}>
+                                                    <select defaultValue={curRead.shelf} onChange={(e)=> this.props.onchangeshelf(curRead,e.target.value)}>
                                                         <option value="none" disabled>Move to...</option>
                                                         <option value="currentlyReading">Currently Reading</option>
                                                         <option value="wantToRead">Want to Read</option>
@@ -55,7 +55,7 @@ class homepage extends Component{
                                             <div className="book-top">
                                                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${read.imageLinks.smallThumbnail})` }}></div>
                                                 <div className="book-shelf-changer">
-                                                    <select defaultValue={read.shelf} onChange={(e)=> this.props.onchangeshelf(read.id,e.target.value)}>
+                                                    <select defaultValue={read.shelf} onChange={(e)=> this.props.onchangeshelf(read,e.target.value)}>
                                                         <option value="none" disabled>Move to...</option>
                                                         <option value="currentlyReading">Currently Reading</option>
                                                         <option value="wantToRead">Want to Read</option>
@@ -85,7 +85,7 @@ class homepage extends Component{
                                             <div className="book-top">
                                                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${wantRead.imageLinks.smallThumbnail})` }}></div>
                                                 <div className="book-shelf-changer">
-                                                    <select defaultValue={wantRead.shelf} onChange={(e)=> this.props.onchangeshelf(wantRead.id,e.target.value)}>
+                                                    <select defaultValue={wantRead.shelf} onChange={(e)=> this.props.onchangeshelf(wantRead,e.target.value)}>
                                                         <option value="none" disabled>Move to...</option>
                                                         <option value="currentlyReading">Currently Reading</option>
                                                         <option value="wantToRead">Want to Read</option>

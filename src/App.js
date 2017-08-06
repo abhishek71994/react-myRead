@@ -7,7 +7,7 @@ import { Route } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   state = {
-    
+
     showSearchPage: true,
       books:[],
       currentRead : () => {
@@ -27,12 +27,11 @@ class BooksApp extends React.Component {
   }
     onChangingShelf = (book,shelf) => {
         console.log("Change shelf fired")
-        BooksAPI.update(book,shelf).then((response)=>{
-            this.setState(({books}) => ({
-                books: books.map(b => {
-                    if (b.id === book) b.shelf = shelf
-                    return b
-                })
+        BooksAPI.update(book,shelf).then(() =>  {
+            book.shelf = shelf
+            // Filter out book and append it so it appears at the end of new shelf
+            this.setState(state => ({
+                books: this.state.books.filter(b => b.id !== book.id).concat([ book ])
             }))
         })
 
