@@ -17,17 +17,29 @@ class addSearch extends Component{
     }
 
     updateQuery=(query) => {
+        let resArr=[]
         this.setState({query:query})
             BooksAPI.search(this.state.query,20).then((response) => {
-                if(query){
-                    if (response!==undefined && response.length > 0) {
-
-                        this.setState({result: response})
+                    if(query){
+                        if (response!==undefined && response.length > 0) {
+                            resArr=response.map(book=>{
+                                for(let bookShelf of this.props.books){
+                                    book.shelf=bookShelf.id===book.id?bookShelf.shelf:'none'
+                                    if(book.shelf!== 'none'){
+                                        break;
+                                    }
+                                }
+                                return book
+                            })
+                            this.setState({result: resArr})
+                        }
                     }
-                }
 
                 }
-            )
+            ).catch(e => {
+                console.log(e)
+                this.setState({results: []})
+            })
         if(this.state.query===''){
             this.setState({result:[]})
         }
@@ -88,7 +100,8 @@ class addSearch extends Component{
     }
 }
 addSearch.propTypes={
-    onAddShelf:PropTypes.func.isRequired
+    onAddShelf:PropTypes.func.isRequired,
+    books:PropTypes.array.isRequired
 }
 
 export default addSearch
